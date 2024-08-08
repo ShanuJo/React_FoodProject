@@ -34,6 +34,8 @@ app.post('/orders', async (req, res) => {
     !orderData.customer.email.includes('@') ||
     orderData.customer.name === null ||
     orderData.customer.name.trim() === '' ||
+    orderData.customer.number === null ||
+    orderData.customer.number.trim() === '' ||
     orderData.customer.street === null ||
     orderData.customer.street.trim() === '' ||
     orderData.customer['postal-code'] === null ||
@@ -43,7 +45,7 @@ app.post('/orders', async (req, res) => {
   ) {
     return res.status(400).json({
       message:
-        'Missing data: Email, name, street, postal code or city is missing.',
+        'Missing data: Email, name, phone, street, postal code or city is missing.',
     });
   }
 
