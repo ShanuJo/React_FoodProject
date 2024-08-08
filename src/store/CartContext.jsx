@@ -4,6 +4,7 @@ const CartContext = createContext({
     items: [],
     addItem: (item) => { },
     removeItem: (id) => { },
+    clearCart:()=>{}
 })
 
 function cartReducer(state, action) {
@@ -44,6 +45,10 @@ function cartReducer(state, action) {
         return { ...state, items: updatedItems };
     }
 
+    if(action.type === 'Clear_Cart'){
+        return {...state, items:[]}
+    }
+
     return state;
 }
 
@@ -58,12 +63,16 @@ export function CartContextProvider({ children }) {
         dispatchCartAction({type:'Remove_Item', id})
     }
 
+    function clearCart(){
+        dispatchCartAction({type:'Clear_Cart'})
+    }
+
     const cartContext ={
         items : cart.items,
         addItem, // addItem:addItem(if the key and value are same then we can write once).
-        removeItem
+        removeItem,
+        clearCart
     }
-console.log('cartContext::',cartContext)
     return <CartContext.Provider value={cartContext}>{children}</CartContext.Provider>
 }
 
